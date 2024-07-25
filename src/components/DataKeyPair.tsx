@@ -344,7 +344,8 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
                   <ExpandMoreIcon
                     sx={{
                       fontSize: '.8rem',
-                      '&:hover': { cursor: 'pointer' }
+                      '&:hover': { cursor: 'pointer' },
+                      color: '#5E7297'
                     }}
                   />
                   )
@@ -352,7 +353,8 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
                   <ChevronRightIcon
                     sx={{
                       fontSize: '.8rem',
-                      '&:hover': { cursor: 'pointer' }
+                      '&:hover': { cursor: 'pointer' },
+                      color: '#5E7297'
                     }}
                   />
                   )

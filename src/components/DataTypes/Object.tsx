@@ -195,13 +195,13 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
               sx={{
                 cursor: 'pointer',
                 lineHeight: 1.5,
-                color: keyColor,
+                color: '#5E7297',
                 letterSpacing: 0.5,
                 opacity: 0.8,
                 userSelect: 'none'
               }}
               key='last'
-              onClick={() => setDisplayLength(length => length * 2)}
+              onClick={() => setDisplayLength(() => value.length)}
             >
               hidden {rest} items…
             </DataBox>
@@ -245,13 +245,13 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
           sx={{
             cursor: 'pointer',
             lineHeight: 1.5,
-            color: keyColor,
+            color: '#5E7297',
             letterSpacing: 0.5,
             opacity: 0.8,
             userSelect: 'none'
           }}
           key='last'
-          onClick={() => setDisplayLength(length => length * 2)}
+          onClick={() => setDisplayLength(length => length + rest)}
         >
           hidden {rest} items…
         </DataBox>
@@ -266,7 +266,6 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
     props.nestedIndex,
     groupArraysAfterLength,
     displayLength,
-    keyColor,
     objectSortKeys
   ])
   const marginLeft = props.inspect ? 0.6 : 0
