@@ -3,13 +3,7 @@ import { createContext, useContext } from 'react'
 import type { StoreApi } from 'zustand'
 import { create, useStore } from 'zustand'
 
-import type {
-  JsonViewerOnChange,
-  JsonViewerOnCopy,
-  JsonViewerOnSelect,
-  JsonViewerProps,
-  Path
-} from '..'
+import type { JsonViewerOnChange, JsonViewerOnCopy, JsonViewerOnSelect, JsonViewerProps, Path } from '..'
 import type { Colorspace } from '../theme/base16'
 import { lightColorspace } from '../theme/base16'
 import type { JsonViewerKeyRenderer, JsonViewerOnAdd, JsonViewerOnDelete } from '../type'
@@ -36,6 +30,7 @@ export type JsonViewerState<T = unknown> = {
   groupArraysAfterLength: number
   collapseStringsAfterLength: number
   objectSortKeys: boolean | ((a: string, b: string) => number)
+  hideIndex: boolean
   quotesOnKeys: boolean
   displayDataTypes: boolean
   displaySize: boolean | ((path: Path, value: unknown) => boolean)
@@ -52,7 +47,7 @@ export type JsonViewerState<T = unknown> = {
   setHover: (path: Path | null, nestedIndex?: number) => void
 }
 
-export const createJsonViewerStore = <T = unknown> (props: JsonViewerProps<T>) => {
+export const createJsonViewerStore = <T = unknown>(props: JsonViewerProps<T>) => {
   return create<JsonViewerState>()((set, get) => ({
     // provided by user
     rootName: props.rootName ?? 'root',
@@ -72,10 +67,9 @@ export const createJsonViewerStore = <T = unknown> (props: JsonViewerProps<T>) =
     maxDisplayLength: props.maxDisplayLength ?? 30,
     groupArraysAfterLength: props.groupArraysAfterLength ?? 100,
     collapseStringsAfterLength:
-    (props.collapseStringsAfterLength === false)
-      ? Number.MAX_VALUE
-      : props.collapseStringsAfterLength ?? 50,
+      props.collapseStringsAfterLength === false ? Number.MAX_VALUE : props.collapseStringsAfterLength ?? 50,
     objectSortKeys: props.objectSortKeys ?? false,
+    hideIndex: props.hideIndex ?? false,
     quotesOnKeys: props.quotesOnKeys ?? true,
     displayDataTypes: props.displayDataTypes ?? true,
     displaySize: props.displaySize ?? true,
@@ -89,30 +83,21 @@ export const createJsonViewerStore = <T = unknown> (props: JsonViewerProps<T>) =
     prevValue: undefined,
 
     getInspectCache: (path, nestedIndex) => {
-      const target = nestedIndex !== undefined
-        ? path.join('.') + `[${nestedIndex}]nt`
-        : path.join('.')
+      const target = nestedIndex !== undefined ? path.join('.') + `[${nestedIndex}]nt` : path.join('.')
       return get().inspectCache[target]
     },
     setInspectCache: (path, action, nestedIndex) => {
-      const target = nestedIndex !== undefined
-        ? path.join('.') + `[${nestedIndex}]nt`
-        : path.join('.')
-      set(state => ({
+      const target = nestedIndex !== undefined ? path.join('.') + `[${nestedIndex}]nt` : path.join('.')
+      set((state) => ({
         inspectCache: {
           ...state.inspectCache,
-          [target]: typeof action === 'function'
-            ? action(
-              state.inspectCache[target])
-            : action
+          [target]: typeof action === 'function' ? action(state.inspectCache[target]) : action
         }
       }))
     },
     setHover: (path, nestedIndex) => {
       set({
-        hoverPath: path
-          ? ({ path, nestedIndex })
-          : null
+        hoverPath: path ? { path, nestedIndex } : null
       })
     }
   }))
@@ -124,7 +109,10 @@ export const JsonViewerStoreContext = createContext<StoreApi<JsonViewerState>>(u
 
 export const JsonViewerProvider = JsonViewerStoreContext.Provider
 
-export const useJsonViewerStore = <U extends unknown>(selector: (state: JsonViewerState) => U, equalityFn?: (a: U, b: U) => boolean) => {
+export const useJsonViewerStore = <U extends unknown>(
+  selector: (state: JsonViewerState) => U,
+  equalityFn?: (a: U, b: U) => boolean
+) => {
   const store = useContext(JsonViewerStoreContext)
   return useStore(store, selector, equalityFn)
 }

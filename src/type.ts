@@ -32,26 +32,18 @@ export type JsonViewerOnCopy = <U = unknown>(
  * @param path path to the target value
  * @param value the value to be selected
  */
-export type JsonViewerOnSelect = <U = unknown>(
-  path: Path,
-  value: U,
-) => void
+export type JsonViewerOnSelect = <U = unknown>(path: Path, value: U) => void
 
 /**
  * @param path path to the parent target where the value will be added
  */
-export type JsonViewerOnAdd = (
-  path: Path,
-) => void
+export type JsonViewerOnAdd = (path: Path) => void
 
 /**
  * @param path path to the target value
  * @param value the value to be deleted
  */
-export type JsonViewerOnDelete = <U = unknown>(
-  path: Path,
-  value: U,
-) => void
+export type JsonViewerOnDelete = <U = unknown>(path: Path, value: U) => void
 
 export interface DataItemProps<ValueType = unknown> {
   inspect: boolean
@@ -118,7 +110,7 @@ export type DataType<ValueType = unknown> = {
 }
 
 export interface JsonViewerKeyRenderer extends FC<DataItemProps> {
-  when (props: DataItemProps): boolean
+  when(props: DataItemProps): boolean
 }
 
 export type JsonViewerTheme = 'light' | 'dark' | 'auto' | Colorspace
@@ -174,6 +166,13 @@ export type JsonViewerProps<T = unknown> = {
    * @default false
    * */
   enableAdd?: boolean | (<U = unknown>(path: Path, currentValue: U) => boolean)
+
+  /**
+   * Whether hide the indexes
+   *
+   * @default false
+   */
+  hideIndex?: boolean
 
   /**
    * Whether enable delete feature.

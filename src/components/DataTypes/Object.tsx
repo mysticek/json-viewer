@@ -145,6 +145,7 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
           elements.push(
             <DataKeyPair
               key={key}
+              comaPosition={elements.length < k - 1 ? 'before' : undefined}
               path={path}
               value={value}
               prevValue={props.prevValue instanceof Map ? props.prevValue.get(k) : undefined}
@@ -176,14 +177,15 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
     if (Array.isArray(value)) {
       // unknown[]
       if (value.length <= groupArraysAfterLength) {
-        const elements = value.slice(0, displayLength).map((value, _index) => {
+        const elements = value.slice(0, displayLength).map((_value, _index) => {
           const index = props.nestedIndex ? (props.nestedIndex * groupArraysAfterLength) + _index : _index
           const path = [...props.path, index]
           return (
             <DataKeyPair
               key={index}
+              comaPosition={_index <= value.length - 2 ? 'before' : undefined}
               path={path}
-              value={value}
+              value={_value}
               prevValue={Array.isArray(props.prevValue) ? props.prevValue[index] : undefined}
             />
           )
@@ -218,6 +220,7 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
           <DataKeyPair
             key={index}
             path={props.path}
+            comaPosition={index <= value.length - 2 ? 'before' : undefined}
             value={list}
             nestedIndex={index}
             prevValue={prevElements?.[index]}
@@ -232,10 +235,10 @@ const ObjectType: FC<DataItemProps<object>> = (props) => {
         ? entries.sort(([a], [b]) => a.localeCompare(b))
         : entries.sort(([a], [b]) => objectSortKeys(a, b))
     }
-    const elements = entries.slice(0, displayLength).map(([key, value]) => {
+    const elements = entries.slice(0, displayLength).map(([key, value], index) => {
       const path = [...props.path, key]
       return (
-        <DataKeyPair key={key} path={path} value={value} prevValue={(props.prevValue as any)?.[key]} />
+        <DataKeyPair comaPosition={index <= entries.length - 2 ? 'after' : undefined} key={key} path={path} value={value} prevValue={(props.prevValue as any)?.[key]} />
       )
     })
     if (entries.length > displayLength) {
