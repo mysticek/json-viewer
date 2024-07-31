@@ -8,44 +8,44 @@ import copyToClipboard from 'copy-to-clipboard';
 function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}
 
 const lightColorspace = {
-    scheme: "Light Theme",
-    author: "mac gainor (https://github.com/mac-s-g)",
-    base00: "rgba(0, 0, 0, 0)",
-    base01: "rgb(245, 245, 245)",
-    base02: "rgb(235, 235, 235)",
-    base03: "#93a1a1",
-    base04: "rgba(0, 0, 0, 0.3)",
-    base05: "#586e75",
-    base06: "#073642",
-    base07: "#002b36",
-    base08: "#d33682",
-    base09: "#cb4b16",
-    base0A: "#ffd500",
-    base0B: "#859900",
-    base0C: "#6c71c4",
-    base0D: "#586e75",
-    base0E: "#2aa198",
-    base0F: "#268bd2"
+    scheme: 'Light Theme',
+    author: 'mac gainor (https://github.com/mac-s-g)',
+    base00: 'rgba(0, 0, 0, 0)',
+    base01: 'rgb(245, 245, 245)',
+    base02: 'rgb(235, 235, 235)',
+    base03: '#93a1a1',
+    base04: 'rgba(0, 0, 0, 0.3)',
+    base05: '#586e75',
+    base06: '#073642',
+    base07: '#002b36',
+    base08: '#d33682',
+    base09: '#cb4b16',
+    base0A: '#ffd500',
+    base0B: '#859900',
+    base0C: '#6c71c4',
+    base0D: '#586e75',
+    base0E: '#2aa198',
+    base0F: '#268bd2'
 };
 const darkColorspace = {
-    scheme: "Dark Theme",
-    author: "Chris Kempson (http://chriskempson.com)",
-    base00: "#181818",
-    base01: "#282828",
-    base02: "#383838",
-    base03: "#585858",
-    base04: "#b8b8b8",
-    base05: "#d8d8d8",
-    base06: "#e8e8e8",
-    base07: "#f8f8f8",
-    base08: "#ab4642",
-    base09: "#dc9656",
-    base0A: "#f7ca88",
-    base0B: "#a1b56c",
-    base0C: "#86c1b9",
-    base0D: "#7cafc2",
-    base0E: "#ba8baf",
-    base0F: "#a16946"
+    scheme: 'Dark Theme',
+    author: 'Chris Kempson (http://chriskempson.com)',
+    base00: '#181818',
+    base01: '#282828',
+    base02: '#383838',
+    base03: '#585858',
+    base04: '#b8b8b8',
+    base05: '#d8d8d8',
+    base06: '#e8e8e8',
+    base07: '#f8f8f8',
+    base08: '#ab4642',
+    base09: '#dc9656',
+    base0A: '#f7ca88',
+    base0B: '#a1b56c',
+    base0C: '#86c1b9',
+    base0D: '#7cafc2',
+    base0E: '#ba8baf',
+    base0F: '#a16946'
 };
 
 const DefaultKeyRenderer = ()=>null;
@@ -55,7 +55,7 @@ const createJsonViewerStore = (props)=>{
         var _props_rootName, _props_indentWidth, _props_keyRenderer, _props_enableAdd, _props_enableDelete, _props_enableClipboard, _props_editable, _props_onChange, _props_onCopy, _props_onSelect, _props_onAdd, _props_onDelete, _props_defaultInspectDepth, _props_defaultInspectControl, _props_maxDisplayLength, _props_groupArraysAfterLength, _props_collapseStringsAfterLength, _props_objectSortKeys, _props_hideIndex, _props_quotesOnKeys, _props_displayDataTypes, _props_displaySize, _props_highlightUpdates;
         return {
             // provided by user
-            rootName: (_props_rootName = props.rootName) !== null && _props_rootName !== void 0 ? _props_rootName : "root",
+            rootName: (_props_rootName = props.rootName) !== null && _props_rootName !== void 0 ? _props_rootName : 'root',
             indentWidth: (_props_indentWidth = props.indentWidth) !== null && _props_indentWidth !== void 0 ? _props_indentWidth : 3,
             keyRenderer: (_props_keyRenderer = props.keyRenderer) !== null && _props_keyRenderer !== void 0 ? _props_keyRenderer : DefaultKeyRenderer,
             enableAdd: (_props_enableAdd = props.enableAdd) !== null && _props_enableAdd !== void 0 ? _props_enableAdd : false,
@@ -85,15 +85,15 @@ const createJsonViewerStore = (props)=>{
             value: props.value,
             prevValue: undefined,
             getInspectCache: (path, nestedIndex)=>{
-                const target = nestedIndex !== undefined ? path.join(".") + "[".concat(nestedIndex, "]nt") : path.join(".");
+                const target = nestedIndex !== undefined ? path.join('.') + "[".concat(nestedIndex, "]nt") : path.join('.');
                 return get().inspectCache[target];
             },
             setInspectCache: (path, action, nestedIndex)=>{
-                const target = nestedIndex !== undefined ? path.join(".") + "[".concat(nestedIndex, "]nt") : path.join(".");
+                const target = nestedIndex !== undefined ? path.join('.') + "[".concat(nestedIndex, "]nt") : path.join('.');
                 set((state)=>({
                         inspectCache: {
                             ...state.inspectCache,
-                            [target]: typeof action === "function" ? action(state.inspectCache[target]) : action
+                            [target]: typeof action === 'function' ? action(state.inspectCache[target]) : action
                         }
                     }));
             },
@@ -124,12 +124,12 @@ const useTextColor = ()=>{
 // reference: https://github.com/immerjs/immer/blob/main/src/utils/common.ts
 const objectCtorString = Object.prototype.constructor.toString();
 function isPlainObject(value) {
-    if (!value || typeof value !== "object") return false;
+    if (!value || typeof value !== 'object') return false;
     const proto = Object.getPrototypeOf(value);
     if (proto === null) return true;
-    const Ctor = Object.hasOwnProperty.call(proto, "constructor") && proto.constructor;
+    const Ctor = Object.hasOwnProperty.call(proto, 'constructor') && proto.constructor;
     if (Ctor === Object) return true;
-    return typeof Ctor === "function" && Function.toString.call(Ctor) === objectCtorString;
+    return typeof Ctor === 'function' && Function.toString.call(Ctor) === objectCtorString;
 }
 function shouldShallowCopy(value) {
     if (!value) return false;
@@ -139,16 +139,16 @@ function shallowCopy(value) {
     if (Array.isArray(value)) return Array.prototype.slice.call(value);
     if (value instanceof Set) return new Set(value);
     if (value instanceof Map) return new Map(value);
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
         return Object.assign({}, value);
     }
     return value;
 }
 function _applyValue(input, path, value) {
     let visitedMapping = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : new Map();
-    if (typeof input !== "object" || input === null) {
+    if (typeof input !== 'object' || input === null) {
         if (path.length !== 0) {
-            throw new Error("path is incorrect");
+            throw new Error('path is incorrect');
         }
         return value;
     }
@@ -163,8 +163,8 @@ function _applyValue(input, path, value) {
     }
     const [key, ...restPath] = path;
     if (key !== undefined) {
-        if (key === "__proto__") {
-            throw new TypeError("Modification of prototype is not allowed");
+        if (key === '__proto__') {
+            throw new TypeError('Modification of prototype is not allowed');
         }
         if (restPath.length > 0) {
             input[key] = _applyValue(input[key], restPath, value, visitedMapping);
@@ -182,9 +182,9 @@ function _applyValue(input, path, value) {
 /**
  * Delete a value from a given path of an object.
  */ function deleteValue(input, path, value) {
-    if (typeof input !== "object" || input === null) {
+    if (typeof input !== 'object' || input === null) {
         if (path.length !== 0) {
-            throw new Error("path is incorrect");
+            throw new Error('path is incorrect');
         }
         return value;
     }
@@ -192,8 +192,8 @@ function _applyValue(input, path, value) {
     if (shouldCopy) input = shallowCopy(input);
     const [key, ...restPath] = path;
     if (key !== undefined) {
-        if (key === "__proto__") {
-            throw new TypeError("Modification of prototype is not allowed");
+        if (key === '__proto__') {
+            throw new TypeError('Modification of prototype is not allowed');
         }
         if (restPath.length > 0) {
             input[key] = deleteValue(input[key], restPath, value);
@@ -210,8 +210,8 @@ function _applyValue(input, path, value) {
 /**
  * @deprecated use `defineDataType` instead
  */ function createDataType(is, Component, Editor, PreComponent, PostComponent) {
-    if (process.env.NODE_ENV !== "production") {
-        console.warn("createDataType is deprecated, please use `defineDataType` instead. See https://viewer.textea.io/migration/migration-v3#use-definedatatype-instead-of-createdatatype for more information.");
+    if (process.env.NODE_ENV !== 'production') {
+        console.warn('createDataType is deprecated, please use `defineDataType` instead. See https://viewer.textea.io/migration/migration-v3#use-definedatatype-instead-of-createdatatype for more information.');
     }
     return {
         is,
@@ -239,14 +239,14 @@ const isCycleReference = (root, path, value)=>{
     if (root === null || value === null) {
         return false;
     }
-    if (typeof root !== "object") {
+    if (typeof root !== 'object') {
         return false;
     }
-    if (typeof value !== "object") {
+    if (typeof value !== 'object') {
         return false;
     }
     if (Object.is(root, value) && path.length !== 0) {
-        return "";
+        return '';
     }
     const currentPath = [];
     const arr = [
@@ -254,16 +254,16 @@ const isCycleReference = (root, path, value)=>{
     ];
     let currentRoot = root;
     while(currentRoot !== value || arr.length !== 0){
-        if (typeof currentRoot !== "object" || currentRoot === null) {
+        if (typeof currentRoot !== 'object' || currentRoot === null) {
             return false;
         }
         if (Object.is(currentRoot, value)) {
             return currentPath.reduce((path, value, currentIndex)=>{
-                if (typeof value === "number") {
+                if (typeof value === 'number') {
                     return path + "[".concat(value, "]");
                 }
-                return path + "".concat(currentIndex === 0 ? "" : ".").concat(value);
-            }, "");
+                return path + "".concat(currentIndex === 0 ? '' : '.').concat(value);
+            }, '');
         }
         const target = arr.shift();
         currentPath.push(target);
@@ -280,9 +280,9 @@ function getValueSize(value) {
         return value.size;
     } else if (value instanceof Date) {
         return 1;
-    } else if (typeof value === "object") {
+    } else if (typeof value === 'object') {
         return Object.keys(value).length;
-    } else if (typeof value === "string") {
+    } else if (typeof value === 'string') {
         return value.length;
     }
     return 1;
@@ -308,17 +308,17 @@ function segmentArray(arr, size) {
     const seenValues = [];
     function replacer(key, value) {
         // https://github.com/GoogleChromeLabs/jsbi/issues/30
-        if (typeof value === "bigint") return value.toString();
+        if (typeof value === 'bigint') return value.toString();
         // Map and Set are not supported by JSON.stringify
         if (value instanceof Map) {
-            if ("toJSON" in value && typeof value.toJSON === "function") return value.toJSON();
+            if ('toJSON' in value && typeof value.toJSON === 'function') return value.toJSON();
             if (value.size === 0) return {};
-            if (seenValues.includes(value)) return "[Circular]";
+            if (seenValues.includes(value)) return '[Circular]';
             seenValues.push(value);
             const entries = Array.from(value.entries());
             if (entries.every((param)=>{
                 let [key] = param;
-                return typeof key === "string" || typeof key === "number";
+                return typeof key === 'string' || typeof key === 'number';
             })) {
                 return Object.fromEntries(entries);
             }
@@ -327,20 +327,20 @@ function segmentArray(arr, size) {
             return {};
         }
         if (value instanceof Set) {
-            if ("toJSON" in value && typeof value.toJSON === "function") return value.toJSON();
-            if (seenValues.includes(value)) return "[Circular]";
+            if ('toJSON' in value && typeof value.toJSON === 'function') return value.toJSON();
+            if (seenValues.includes(value)) return '[Circular]';
             seenValues.push(value);
             return Array.from(value.values());
         }
         // https://stackoverflow.com/a/72457899
-        if (typeof value === "object" && value !== null && Object.keys(value).length) {
+        if (typeof value === 'object' && value !== null && Object.keys(value).length) {
             const stackSize = seenValues.length;
             if (stackSize) {
                 // clean up expired references
                 for(let n = stackSize - 1; n >= 0 && seenValues[n][key] !== value; --n){
                     seenValues.pop();
                 }
-                if (seenValues.includes(value)) return "[Circular]";
+                if (seenValues.includes(value)) return '[Circular]';
             }
             seenValues.push(value);
         }
@@ -349,7 +349,7 @@ function segmentArray(arr, size) {
     return JSON.stringify(obj, replacer, space);
 }
 async function copyString(value) {
-    if ("clipboard" in navigator) {
+    if ('clipboard' in navigator) {
         try {
             await navigator.clipboard.writeText(value);
         } catch  {
@@ -381,20 +381,20 @@ async function copyString(value) {
     ]);
     const onCopy = useJsonViewerStore((store)=>store.onCopy);
     const copy = useCallback(async (path, value)=>{
-        if (typeof onCopy === "function") {
+        if (typeof onCopy === 'function') {
             try {
                 await onCopy(path, value, copyString);
                 handleCopyResult(true);
             } catch (error) {
-                console.error("error when copy ".concat(path.length === 0 ? "src" : "src[".concat(path.join(".")), "]"), error);
+                console.error("error when copy ".concat(path.length === 0 ? 'src' : "src[".concat(path.join('.')), "]"), error);
             }
         } else {
             try {
-                const valueToCopy = safeStringify(typeof value === "function" ? value.toString() : value, "  ");
+                const valueToCopy = safeStringify(typeof value === 'function' ? value.toString() : value, '  ');
                 await copyString(valueToCopy);
                 handleCopyResult(true);
             } catch (error) {
-                console.error("error when copy ".concat(path.length === 0 ? "src" : "src[".concat(path.join(".")), "]"), error);
+                console.error("error when copy ".concat(path.length === 0 ? 'src' : "src[".concat(path.join('.')), "]"), error);
             }
         }
     }, [
@@ -441,7 +441,7 @@ function useInspect(path, value, nestedIndex) {
             return;
         }
         // do not inspect when it is a cycle reference, otherwise there will have a loop
-        const shouldInspect = isTrap ? false : typeof defaultInspectControl === "function" ? defaultInspectControl(path, value) : depth < defaultInspectDepth;
+        const shouldInspect = isTrap ? false : typeof defaultInspectControl === 'function' ? defaultInspectControl(path, value) : depth < defaultInspectDepth;
         setInspectCache(path, shouldInspect);
     }, [
         defaultInspectDepth,
@@ -462,11 +462,11 @@ function useInspect(path, value, nestedIndex) {
         if (nestedIndex !== undefined) {
             return false;
         }
-        return isTrap ? false : typeof defaultInspectControl === "function" ? defaultInspectControl(path, value) : depth < defaultInspectDepth;
+        return isTrap ? false : typeof defaultInspectControl === 'function' ? defaultInspectControl(path, value) : depth < defaultInspectDepth;
     });
     const setInspect = useCallback((apply)=>{
         set((oldState)=>{
-            const newState = typeof apply === "boolean" ? apply : apply(oldState);
+            const newState = typeof apply === 'boolean' ? apply : apply(oldState);
             setInspectCache(path, newState, nestedIndex);
             return newState;
         });
@@ -485,7 +485,7 @@ const DataBox = (props)=>/*#__PURE__*/ jsx(Box, {
         component: "div",
         ...props,
         sx: {
-            display: "inline-block",
+            display: 'inline-block',
             ...props.sx
         }
     });
@@ -497,9 +497,9 @@ const DataTypeLabel = (param)=>{
         className: "data-type-label",
         sx: {
             mx: 0.5,
-            fontSize: "0.7rem",
+            fontSize: '0.7rem',
             opacity: 0.8,
-            userSelect: "none"
+            userSelect: 'none'
         },
         children: dataType
     });
@@ -555,11 +555,11 @@ const DataTypeLabel = (param)=>{
         let { value, setValue, abortEditing, commitEditing } = param;
         const color = useJsonViewerStore((store)=>store.colorspace[colorKey]);
         const handleKeyDown = useCallback((event)=>{
-            if (event.key === "Enter") {
+            if (event.key === 'Enter') {
                 event.preventDefault();
                 commitEditing(value);
             }
-            if (event.key === "Escape") {
+            if (event.key === 'Escape') {
                 event.preventDefault();
                 abortEditing();
             }
@@ -583,12 +583,12 @@ const DataTypeLabel = (param)=>{
             sx: {
                 color,
                 padding: 0.5,
-                borderStyle: "solid",
-                borderColor: "black",
+                borderStyle: 'solid',
+                borderColor: 'black',
                 borderWidth: 1,
-                fontSize: "0.8rem",
-                fontFamily: "monospace",
-                display: "inline-flex"
+                fontSize: '0.8rem',
+                fontFamily: 'monospace',
+                display: 'inline-flex'
             }
         });
     };
@@ -603,39 +603,39 @@ const DataTypeLabel = (param)=>{
 }
 
 const booleanType = defineEasyType({
-    is: (value)=>typeof value === "boolean",
-    type: "bool",
-    colorKey: "base0E",
+    is: (value)=>typeof value === 'boolean',
+    type: 'bool',
+    colorKey: 'base0E',
     serialize: (value)=>value.toString(),
     deserialize: (value)=>{
-        if (value === "true") return true;
-        if (value === "false") return false;
-        throw new Error("Invalid boolean value");
+        if (value === 'true') return true;
+        if (value === 'false') return false;
+        throw new Error('Invalid boolean value');
     },
     Renderer: (param)=>{
         let { value } = param;
         return /*#__PURE__*/ jsx(Fragment, {
-            children: value ? "true" : "false"
+            children: value ? 'true' : 'false'
         });
     }
 });
 
 const displayOptions = {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
 };
 const dateType = defineEasyType({
     is: (value)=>value instanceof Date,
-    type: "date",
-    colorKey: "base0D",
+    type: 'date',
+    colorKey: 'base0D',
     Renderer: (param)=>{
         let { value } = param;
         return /*#__PURE__*/ jsx(Fragment, {
-            children: value.toLocaleTimeString("en-us", displayOptions)
+            children: value.toLocaleTimeString('en-us', displayOptions)
         });
     }
 });
@@ -643,26 +643,26 @@ const dateType = defineEasyType({
 const functionBody = (func)=>{
     const funcString = func.toString();
     let isUsualFunction = true;
-    const parenthesisPos = funcString.indexOf(")");
-    const arrowPos = funcString.indexOf("=>");
+    const parenthesisPos = funcString.indexOf(')');
+    const arrowPos = funcString.indexOf('=>');
     if (arrowPos !== -1 && arrowPos > parenthesisPos) {
         isUsualFunction = false;
     }
     if (isUsualFunction) {
-        return funcString.substring(funcString.indexOf("{", parenthesisPos) + 1, funcString.lastIndexOf("}"));
+        return funcString.substring(funcString.indexOf('{', parenthesisPos) + 1, funcString.lastIndexOf('}'));
     }
-    return funcString.substring(funcString.indexOf("=>") + 2);
+    return funcString.substring(funcString.indexOf('=>') + 2);
 };
 const functionName = (func)=>{
     const funcString = func.toString();
-    const isUsualFunction = funcString.indexOf("function") !== -1;
+    const isUsualFunction = funcString.indexOf('function') !== -1;
     if (isUsualFunction) {
-        return funcString.substring(8, funcString.indexOf("{")).trim();
+        return funcString.substring(8, funcString.indexOf('{')).trim();
     }
-    return funcString.substring(0, funcString.indexOf("=>") + 2).trim();
+    return funcString.substring(0, funcString.indexOf('=>') + 2).trim();
 };
-const lb = "{";
-const rb = "}";
+const lb = '{';
+const rb = '}';
 const PreFunctionType = (props)=>{
     return /*#__PURE__*/ jsxs(NoSsr, {
         children: [
@@ -677,7 +677,7 @@ const PreFunctionType = (props)=>{
                 },
                 children: [
                     functionName(props.value),
-                    " ",
+                    ' ',
                     lb
                 ]
             })
@@ -699,7 +699,7 @@ const FunctionType = (props)=>{
         children: /*#__PURE__*/ jsx(Box, {
             className: "data-function",
             sx: {
-                display: props.inspect ? "block" : "inline-block",
+                display: props.inspect ? 'block' : 'inline-block',
                 pl: props.inspect ? 2 : 0,
                 color: functionColor
             },
@@ -708,8 +708,8 @@ const FunctionType = (props)=>{
                 className: "data-function-body",
                 onClick: ()=>props.setInspect(true),
                 sx: {
-                    "&:hover": {
-                        cursor: "pointer"
+                    '&:hover': {
+                        cursor: 'pointer'
                     },
                     padding: 0.5
                 },
@@ -719,7 +719,7 @@ const FunctionType = (props)=>{
     });
 };
 const functionType = {
-    is: (value)=>typeof value === "function",
+    is: (value)=>typeof value === 'function',
     Component: FunctionType,
     PreComponent: PreFunctionType,
     PostComponent: PostFunctionType
@@ -727,18 +727,18 @@ const functionType = {
 
 const nullType = defineEasyType({
     is: (value)=>value === null,
-    type: "null",
-    colorKey: "base08",
+    type: 'null',
+    colorKey: 'base08',
     displayTypeLabel: false,
     Renderer: ()=>{
         const backgroundColor = useJsonViewerStore((store)=>store.colorspace.base02);
         return /*#__PURE__*/ jsx(Box, {
             sx: {
-                fontSize: "0.8rem",
+                fontSize: '0.8rem',
                 backgroundColor,
-                fontWeight: "bold",
-                borderRadius: "3px",
-                padding: "0.5px 2px"
+                fontWeight: 'bold',
+                borderRadius: '3px',
+                padding: '0.5px 2px'
             },
             children: "NULL"
         });
@@ -747,11 +747,11 @@ const nullType = defineEasyType({
 
 const isInt = (n)=>n % 1 === 0;
 const nanType = defineEasyType({
-    is: (value)=>typeof value === "number" && isNaN(value),
-    type: "NaN",
-    colorKey: "base08",
+    is: (value)=>typeof value === 'number' && isNaN(value),
+    type: 'NaN',
+    colorKey: 'base08',
     displayTypeLabel: false,
-    serialize: ()=>"NaN",
+    serialize: ()=>'NaN',
     // allow deserialize the value back to number
     deserialize: (value)=>parseFloat(value),
     Renderer: ()=>{
@@ -759,19 +759,19 @@ const nanType = defineEasyType({
         return /*#__PURE__*/ jsx(Box, {
             sx: {
                 backgroundColor,
-                fontSize: "0.8rem",
-                fontWeight: "bold",
-                borderRadius: "3px",
-                padding: "0.5px 2px"
+                fontSize: '0.8rem',
+                fontWeight: 'bold',
+                borderRadius: '3px',
+                padding: '0.5px 2px'
             },
             children: "NaN"
         });
     }
 });
 const floatType = defineEasyType({
-    is: (value)=>typeof value === "number" && !isInt(value) && !isNaN(value),
-    type: "float",
-    colorKey: "base0B",
+    is: (value)=>typeof value === 'number' && !isInt(value) && !isNaN(value),
+    type: 'float',
+    colorKey: 'base0B',
     serialize: (value)=>value.toString(),
     deserialize: (value)=>parseFloat(value),
     Renderer: (param)=>{
@@ -782,9 +782,9 @@ const floatType = defineEasyType({
     }
 });
 const intType = defineEasyType({
-    is: (value)=>typeof value === "number" && isInt(value),
-    type: "int",
-    colorKey: "base0F",
+    is: (value)=>typeof value === 'number' && isInt(value),
+    type: 'int',
+    colorKey: 'base0F',
     serialize: (value)=>value.toString(),
     // allow deserialize the value to float
     deserialize: (value)=>parseFloat(value),
@@ -796,11 +796,11 @@ const intType = defineEasyType({
     }
 });
 const bigIntType = defineEasyType({
-    is: (value)=>typeof value === "bigint",
-    type: "bigint",
-    colorKey: "base0F",
+    is: (value)=>typeof value === 'bigint',
+    type: 'bigint',
+    colorKey: 'base0F',
     serialize: (value)=>value.toString(),
-    deserialize: (value)=>BigInt(value.replace(/\D/g, "")),
+    deserialize: (value)=>BigInt(value.replace(/\D/g, '')),
     Renderer: (param)=>{
         let { value } = param;
         return /*#__PURE__*/ jsx(Fragment, {
@@ -818,15 +818,15 @@ const BaseIcon = (param)=>{
         })
     });
 };
-const AddBox = "M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14zm-8-2h2v-4h4v-2h-4V7h-2v4H7v2h4z";
-const Check = "M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-const ChevronRight = "M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
-const CircularArrows = "M 12 2 C 10.615 1.998 9.214625 2.2867656 7.890625 2.8847656 L 8.9003906 4.6328125 C 9.9043906 4.2098125 10.957 3.998 12 4 C 15.080783 4 17.738521 5.7633175 19.074219 8.3222656 L 17.125 9 L 21.25 11 L 22.875 7 L 20.998047 7.6523438 C 19.377701 4.3110398 15.95585 2 12 2 z M 6.5097656 4.4882812 L 2.2324219 5.0820312 L 3.734375 6.3808594 C 1.6515335 9.4550558 1.3615962 13.574578 3.3398438 17 C 4.0308437 18.201 4.9801562 19.268234 6.1601562 20.115234 L 7.1699219 18.367188 C 6.3019219 17.710187 5.5922656 16.904 5.0722656 16 C 3.5320014 13.332354 3.729203 10.148679 5.2773438 7.7128906 L 6.8398438 9.0625 L 6.5097656 4.4882812 z M 19.929688 13 C 19.794687 14.08 19.450734 15.098 18.927734 16 C 17.386985 18.668487 14.531361 20.090637 11.646484 19.966797 L 12.035156 17.9375 L 8.2402344 20.511719 L 10.892578 23.917969 L 11.265625 21.966797 C 14.968963 22.233766 18.681899 20.426323 20.660156 17 C 21.355156 15.801 21.805219 14.445 21.949219 13 L 19.929688 13 z";
-const Close = "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
-const ContentCopy = "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z";
-const Edit = "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z";
-const ExpandMore = "M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z";
-const Delete = "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z";
+const AddBox = 'M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14zm-8-2h2v-4h4v-2h-4V7h-2v4H7v2h4z';
+const Check = 'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z';
+const ChevronRight = 'M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z';
+const CircularArrows = 'M 12 2 C 10.615 1.998 9.214625 2.2867656 7.890625 2.8847656 L 8.9003906 4.6328125 C 9.9043906 4.2098125 10.957 3.998 12 4 C 15.080783 4 17.738521 5.7633175 19.074219 8.3222656 L 17.125 9 L 21.25 11 L 22.875 7 L 20.998047 7.6523438 C 19.377701 4.3110398 15.95585 2 12 2 z M 6.5097656 4.4882812 L 2.2324219 5.0820312 L 3.734375 6.3808594 C 1.6515335 9.4550558 1.3615962 13.574578 3.3398438 17 C 4.0308437 18.201 4.9801562 19.268234 6.1601562 20.115234 L 7.1699219 18.367188 C 6.3019219 17.710187 5.5922656 16.904 5.0722656 16 C 3.5320014 13.332354 3.729203 10.148679 5.2773438 7.7128906 L 6.8398438 9.0625 L 6.5097656 4.4882812 z M 19.929688 13 C 19.794687 14.08 19.450734 15.098 18.927734 16 C 17.386985 18.668487 14.531361 20.090637 11.646484 19.966797 L 12.035156 17.9375 L 8.2402344 20.511719 L 10.892578 23.917969 L 11.265625 21.966797 C 14.968963 22.233766 18.681899 20.426323 20.660156 17 C 21.355156 15.801 21.805219 14.445 21.949219 13 L 19.929688 13 z';
+const Close = 'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z';
+const ContentCopy = 'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z';
+const Edit = 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z';
+const ExpandMore = 'M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z';
+const Delete = 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z';
 const AddBoxIcon = (props)=>{
     return /*#__PURE__*/ jsx(BaseIcon, {
         d: AddBox,
@@ -882,20 +882,20 @@ const DeleteIcon = (props)=>{
     });
 };
 
-const objectLb = "{";
-const arrayLb = "[";
-const objectRb = "}";
-const arrayRb = "]";
+const objectLb = '{';
+const arrayLb = '[';
+const objectRb = '}';
+const arrayRb = ']';
 function inspectMetadata(value) {
     const length = getValueSize(value);
-    let name = "";
+    let name = '';
     if (value instanceof Map || value instanceof Set) {
         name = value[Symbol.toStringTag];
     }
     if (Object.prototype.hasOwnProperty.call(value, Symbol.toStringTag)) {
         name = value[Symbol.toStringTag];
     }
-    return "".concat(length, " Items").concat(name ? " (".concat(name, ")") : "");
+    return "".concat(length, " Items").concat(name ? " (".concat(name, ")") : '');
 }
 const PreObjectType = (props)=>{
     const metadataColor = useJsonViewerStore((store)=>store.colorspace.base04);
@@ -910,7 +910,7 @@ const PreObjectType = (props)=>{
         props.value
     ]);
     const displaySize = useJsonViewerStore((store)=>store.displaySize);
-    const shouldDisplaySize = useMemo(()=>typeof displaySize === "function" ? displaySize(props.path, props.value) : displaySize, [
+    const shouldDisplaySize = useMemo(()=>typeof displaySize === 'function' ? displaySize(props.path, props.value) : displaySize, [
         displaySize,
         props.path,
         props.value
@@ -928,9 +928,9 @@ const PreObjectType = (props)=>{
                 component: "span",
                 sx: {
                     pl: 0.5,
-                    fontStyle: "italic",
+                    fontStyle: 'italic',
                     color: metadataColor,
-                    userSelect: "none"
+                    userSelect: 'none'
                 },
                 children: sizeOfValue
             }),
@@ -962,7 +962,7 @@ const PostObjectType = (props)=>{
         props.value
     ]);
     const displaySize = useJsonViewerStore((store)=>store.displaySize);
-    const shouldDisplaySize = useMemo(()=>typeof displaySize === "function" ? displaySize(props.path, props.value) : displaySize, [
+    const shouldDisplaySize = useMemo(()=>typeof displaySize === 'function' ? displaySize(props.path, props.value) : displaySize, [
         displaySize,
         props.path,
         props.value
@@ -982,9 +982,9 @@ const PostObjectType = (props)=>{
                 component: "span",
                 sx: {
                     pl: 0.5,
-                    fontStyle: "italic",
+                    fontStyle: 'italic',
                     color: metadataColor,
-                    userSelect: "none"
+                    userSelect: 'none'
                 },
                 children: sizeOfValue
             }) : null
@@ -992,7 +992,7 @@ const PostObjectType = (props)=>{
     });
 };
 function getIterator(value) {
-    return typeof (value === null || value === void 0 ? void 0 : value[Symbol.iterator]) === "function";
+    return typeof (value === null || value === void 0 ? void 0 : value[Symbol.iterator]) === 'function';
 }
 const ObjectType = (props)=>{
     const keyColor = useTextColor();
@@ -1019,7 +1019,7 @@ const ObjectType = (props)=>{
                         key
                     ];
                     elements.push(/*#__PURE__*/ jsx(DataKeyPair, {
-                        comaPosition: elements.length < k - 1 ? "before" : undefined,
+                        comaPosition: elements.length < k - 1 ? 'before' : undefined,
                         path: path,
                         value: value,
                         prevValue: props.prevValue instanceof Map ? props.prevValue.get(k) : undefined,
@@ -1057,7 +1057,7 @@ const ObjectType = (props)=>{
                         index
                     ];
                     return /*#__PURE__*/ jsx(DataKeyPair, {
-                        comaPosition: _index <= value.length - 2 ? "before" : undefined,
+                        comaPosition: _index <= value.length - 2 ? 'before' : undefined,
                         path: path,
                         value: _value,
                         prevValue: Array.isArray(props.prevValue) ? props.prevValue[index] : undefined
@@ -1067,12 +1067,12 @@ const ObjectType = (props)=>{
                     const rest = value.length - displayLength;
                     elements.push(/*#__PURE__*/ jsxs(DataBox, {
                         sx: {
-                            cursor: "pointer",
+                            cursor: 'pointer',
                             lineHeight: 1.5,
-                            color: "#5E7297",
+                            color: '#5E7297',
                             letterSpacing: 0.5,
                             opacity: 0.8,
-                            userSelect: "none"
+                            userSelect: 'none'
                         },
                         onClick: ()=>setDisplayLength(()=>value.length),
                         children: [
@@ -1089,7 +1089,7 @@ const ObjectType = (props)=>{
             return elements.map((list, index)=>{
                 return /*#__PURE__*/ jsx(DataKeyPair, {
                     path: props.path,
-                    comaPosition: index <= value.length - 2 ? "before" : undefined,
+                    comaPosition: index <= value.length - 2 ? 'before' : undefined,
                     value: list,
                     nestedIndex: index,
                     prevValue: prevElements === null || prevElements === void 0 ? void 0 : prevElements[index]
@@ -1115,7 +1115,7 @@ const ObjectType = (props)=>{
                 key
             ];
             return /*#__PURE__*/ jsx(DataKeyPair, {
-                comaPosition: index <= entries.length - 2 ? "after" : undefined,
+                comaPosition: index <= entries.length - 2 ? 'after' : undefined,
                 path: path,
                 value: value,
                 prevValue: (_props_prevValue = props.prevValue) === null || _props_prevValue === void 0 ? void 0 : _props_prevValue[key]
@@ -1125,12 +1125,12 @@ const ObjectType = (props)=>{
             const rest = entries.length - displayLength;
             elements.push(/*#__PURE__*/ jsxs(DataBox, {
                 sx: {
-                    cursor: "pointer",
+                    cursor: 'pointer',
                     lineHeight: 1.5,
-                    color: "#5E7297",
+                    color: '#5E7297',
                     letterSpacing: 0.5,
                     opacity: 0.8,
-                    userSelect: "none"
+                    userSelect: 'none'
                 },
                 onClick: ()=>setDisplayLength((length)=>length + rest),
                 children: [
@@ -1163,38 +1163,38 @@ const ObjectType = (props)=>{
     return /*#__PURE__*/ jsx(Box, {
         className: "data-object",
         sx: {
-            display: props.inspect ? "block" : "inline-block",
+            display: props.inspect ? 'block' : 'inline-block',
             pl: props.inspect ? indentWidth - 0.6 : 0,
             marginLeft,
             color: keyColor,
-            borderLeft: props.inspect ? "1px solid ".concat(borderColor) : "none"
+            borderLeft: props.inspect ? "1px solid ".concat(borderColor) : 'none'
         },
         children: props.inspect ? elements : !isTrap && /*#__PURE__*/ jsx(Box, {
             component: "span",
             className: "data-object-body",
             onClick: ()=>props.setInspect(true),
             sx: {
-                "&:hover": {
-                    cursor: "pointer"
+                '&:hover': {
+                    cursor: 'pointer'
                 },
                 padding: 0.5,
-                userSelect: "none"
+                userSelect: 'none'
             },
             children: "…"
         })
     });
 };
 const objectType = {
-    is: (value)=>typeof value === "object",
+    is: (value)=>typeof value === 'object',
     Component: ObjectType,
     PreComponent: PreObjectType,
     PostComponent: PostObjectType
 };
 
 const stringType = defineEasyType({
-    is: (value)=>typeof value === "string",
-    type: "string",
-    colorKey: "base09",
+    is: (value)=>typeof value === 'string',
+    type: 'string',
+    colorKey: 'base09',
     serialize: (value)=>value,
     deserialize: (value)=>value,
     Renderer: (props)=>{
@@ -1205,12 +1205,12 @@ const stringType = defineEasyType({
         return /*#__PURE__*/ jsxs(Box, {
             component: "span",
             sx: {
-                overflowWrap: "anywhere",
-                cursor: hasRest ? "pointer" : "inherit"
+                overflowWrap: 'anywhere',
+                cursor: hasRest ? 'pointer' : 'inherit'
             },
             onClick: ()=>{
                 var _window_getSelection;
-                if (((_window_getSelection = window.getSelection()) === null || _window_getSelection === void 0 ? void 0 : _window_getSelection.type) === "Range") {
+                if (((_window_getSelection = window.getSelection()) === null || _window_getSelection === void 0 ? void 0 : _window_getSelection.type) === 'Range') {
                     return;
                 }
                 if (hasRest) {
@@ -1235,17 +1235,17 @@ const stringType = defineEasyType({
 
 const undefinedType = defineEasyType({
     is: (value)=>value === undefined,
-    type: "undefined",
-    colorKey: "base05",
+    type: 'undefined',
+    colorKey: 'base05',
     displayTypeLabel: false,
     Renderer: ()=>{
         const backgroundColor = useJsonViewerStore((store)=>store.colorspace.base02);
         return /*#__PURE__*/ jsx(Box, {
             sx: {
-                fontSize: "0.7rem",
+                fontSize: '0.7rem',
                 backgroundColor,
-                borderRadius: "3px",
-                padding: "0.5px 2px"
+                borderRadius: '3px',
+                padding: '0.5px 2px'
             },
             children: "undefined"
         });
@@ -1255,7 +1255,7 @@ const undefinedType = defineEasyType({
 function memorizeDataType(dataType) {
     function compare(prevProps, nextProps) {
         var _prevProps_path, _nextProps_path;
-        return Object.is(prevProps.value, nextProps.value) && prevProps.inspect && nextProps.inspect && ((_prevProps_path = prevProps.path) === null || _prevProps_path === void 0 ? void 0 : _prevProps_path.join(".")) === ((_nextProps_path = nextProps.path) === null || _nextProps_path === void 0 ? void 0 : _nextProps_path.join("."));
+        return Object.is(prevProps.value, nextProps.value) && prevProps.inspect && nextProps.inspect && ((_prevProps_path = prevProps.path) === null || _prevProps_path === void 0 ? void 0 : _prevProps_path.join('.')) === ((_nextProps_path = nextProps.path) === null || _nextProps_path === void 0 ? void 0 : _nextProps_path.join('.'));
     }
     dataType.Component = /*#__PURE__*/ memo(dataType.Component, compare);
     if (dataType.Editor) {
@@ -1288,7 +1288,7 @@ const createTypeRegistryStore = ()=>{
             registry: predefinedTypes,
             registerTypes: (setState)=>{
                 set((state)=>({
-                        registry: typeof setState === "function" ? setState(state.registry) : setState
+                        registry: typeof setState === 'function' ? setState(state.registry) : setState
                     }));
             }
         }));
@@ -1309,7 +1309,7 @@ function matchTypeComponents(value, path, registry) {
         }
     }
     if (potential === undefined) {
-        if (typeof value === "object") {
+        if (typeof value === 'object') {
             return objectType;
         }
         throw new Error("No type matched for value: ".concat(value));
@@ -1329,8 +1329,8 @@ const IconBox = (props)=>/*#__PURE__*/ jsx(Box, {
         component: "span",
         ...props,
         sx: {
-            cursor: "pointer",
-            paddingLeft: "0.7rem",
+            cursor: 'pointer',
+            paddingLeft: '0.7rem',
             ...props.sx
         }
     });
@@ -1348,7 +1348,7 @@ const DataKeyPair = (props)=>{
             // props.editable is false which means we cannot provide the suitable way to edit it
             return false;
         }
-        if (typeof storeEditable === "function") {
+        if (typeof storeEditable === 'function') {
             return !!storeEditable(path, value);
         }
         return storeEditable;
@@ -1358,7 +1358,7 @@ const DataKeyPair = (props)=>{
         storeEditable,
         value
     ]);
-    const [tempValue, setTempValue] = useState("");
+    const [tempValue, setTempValue] = useState('');
     const depth = path.length;
     const key = path[depth - 1];
     const hoverPath = useJsonViewerStore((store)=>store.hoverPath);
@@ -1394,7 +1394,7 @@ const DataKeyPair = (props)=>{
             // props.editable is false which means we cannot provide the suitable way to edit it
             return false;
         }
-        if (typeof storeEnableAdd === "function") {
+        if (typeof storeEnableAdd === 'function') {
             return !!storeEnableAdd(path, value);
         }
         if (Array.isArray(value) || isPlainObject(value)) {
@@ -1424,7 +1424,7 @@ const DataKeyPair = (props)=>{
             // props.editable is false which means we cannot provide the suitable way to edit it
             return false;
         }
-        if (typeof storeEnableDelete === "function") {
+        if (typeof storeEnableDelete === 'function') {
             return !!storeEnableDelete(path, value);
         }
         return storeEnableDelete;
@@ -1446,7 +1446,7 @@ const DataKeyPair = (props)=>{
         if (typeof value !== typeof prevValue) {
             return true;
         }
-        if (typeof value === "number") {
+        if (typeof value === 'number') {
             // notice: NaN !== NaN
             if (isNaN(value) && isNaN(prevValue)) return false;
             return value !== prevValue;
@@ -1457,7 +1457,7 @@ const DataKeyPair = (props)=>{
         }
         // not highlight object/function
         // deep compare they will be slow
-        if (typeof value === "object" || typeof value === "function") {
+        if (typeof value === 'object' || typeof value === 'function') {
             return false;
         }
         // highlight if not equal
@@ -1472,17 +1472,17 @@ const DataKeyPair = (props)=>{
     ]);
     const highlightContainer = useRef();
     useEffect(()=>{
-        if (highlightContainer.current && isHighlight && "animate" in highlightContainer.current) {
+        if (highlightContainer.current && isHighlight && 'animate' in highlightContainer.current) {
             highlightContainer.current.animate([
                 {
                     backgroundColor: highlightColor
                 },
                 {
-                    backgroundColor: ""
+                    backgroundColor: ''
                 }
             ], {
                 duration: 1000,
-                easing: "ease-in"
+                easing: 'ease-in'
             });
         }
     }, [
@@ -1501,7 +1501,7 @@ const DataKeyPair = (props)=>{
     ]);
     const abortEditing = useCallback(()=>{
         setEditing(false);
-        setTempValue("");
+        setTempValue('');
     }, [
         setEditing,
         setTempValue
@@ -1528,7 +1528,7 @@ const DataKeyPair = (props)=>{
                     /*#__PURE__*/ jsx(IconBox, {
                         children: /*#__PURE__*/ jsx(CloseIcon, {
                             sx: {
-                                fontSize: ".8rem"
+                                fontSize: '.8rem'
                             },
                             onClick: abortEditing
                         })
@@ -1536,7 +1536,7 @@ const DataKeyPair = (props)=>{
                     /*#__PURE__*/ jsx(IconBox, {
                         children: /*#__PURE__*/ jsx(CheckIcon, {
                             sx: {
-                                fontSize: ".8rem"
+                                fontSize: '.8rem'
                             },
                             onClick: ()=>commitEditing(tempValue)
                         })
@@ -1559,11 +1559,11 @@ const DataKeyPair = (props)=>{
                     },
                     children: copied ? /*#__PURE__*/ jsx(CheckIcon, {
                         sx: {
-                            fontSize: ".8rem"
+                            fontSize: '.8rem'
                         }
                     }) : /*#__PURE__*/ jsx(ContentCopyIcon, {
                         sx: {
-                            fontSize: ".8rem"
+                            fontSize: '.8rem'
                         }
                     })
                 }),
@@ -1571,7 +1571,7 @@ const DataKeyPair = (props)=>{
                     onClick: startEditing,
                     children: /*#__PURE__*/ jsx(EditIcon, {
                         sx: {
-                            fontSize: ".8rem"
+                            fontSize: '.8rem'
                         }
                     })
                 }),
@@ -1582,7 +1582,7 @@ const DataKeyPair = (props)=>{
                     },
                     children: /*#__PURE__*/ jsx(AddBoxIcon, {
                         sx: {
-                            fontSize: ".8rem"
+                            fontSize: '.8rem'
                         }
                     })
                 }),
@@ -1593,7 +1593,7 @@ const DataKeyPair = (props)=>{
                     },
                     children: /*#__PURE__*/ jsx(DeleteIcon, {
                         sx: {
-                            fontSize: ".9rem"
+                            fontSize: '.9rem'
                         }
                     })
                 })
@@ -1641,9 +1641,9 @@ const DataKeyPair = (props)=>{
     ]);
     return /*#__PURE__*/ jsxs(Box, {
         className: "data-key-pair",
-        "data-testid": "data-key-pair" + path.join("."),
+        "data-testid": 'data-key-pair' + path.join('.'),
         sx: {
-            userSelect: "text"
+            userSelect: 'text'
         },
         onMouseEnter: useCallback(()=>setHover(path, nestedIndex), [
             setHover,
@@ -1674,19 +1674,19 @@ const DataKeyPair = (props)=>{
                 children: [
                     expandable ? inspect ? /*#__PURE__*/ jsx(ExpandMoreIcon, {
                         sx: {
-                            fontSize: ".8rem",
-                            "&:hover": {
-                                cursor: "pointer"
+                            fontSize: '.8rem',
+                            '&:hover': {
+                                cursor: 'pointer'
                             },
-                            color: "#5E7297"
+                            color: '#5E7297'
                         }
                     }) : /*#__PURE__*/ jsx(ChevronRightIcon, {
                         sx: {
-                            fontSize: ".8rem",
-                            "&:hover": {
-                                cursor: "pointer"
+                            fontSize: '.8rem',
+                            '&:hover': {
+                                cursor: 'pointer'
                             },
-                            color: "#5E7297"
+                            color: '#5E7297'
                         }
                     }) : null,
                     /*#__PURE__*/ jsx(Box, {
@@ -1722,12 +1722,12 @@ const DataKeyPair = (props)=>{
                         sx: {
                             mr: 0.5
                         },
-                        children: hideColon ? "" : ":"
+                        children: hideColon ? '' : ':'
                     }) : nestedIndex === undefined && /*#__PURE__*/ jsx(DataBox, {
                         sx: {
                             mr: 0.5
                         },
-                        children: hideColon ? "" : ":"
+                        children: hideColon ? '' : ':'
                     }),
                     PreComponent && /*#__PURE__*/ jsx(PreComponent, {
                         ...downstreamProps
@@ -1745,7 +1745,7 @@ const DataKeyPair = (props)=>{
                     /*#__PURE__*/ jsx(Component, {
                         ...downstreamProps
                     }),
-                    comaPosition === "before" ? "," : null
+                    comaPosition === 'before' ? ',' : null
                 ]
             }) : /*#__PURE__*/ jsx(Box, {
                 component: "span",
@@ -1755,7 +1755,7 @@ const DataKeyPair = (props)=>{
             PostComponent && /*#__PURE__*/ jsx(PostComponent, {
                 ...downstreamProps
             }),
-            comaPosition === "after" && ",",
+            comaPosition === 'after' && ',',
             isHover && expandable && !inspect && actionIcons,
             isHover && !expandable && actionIcons,
             !isHover && editing && actionIcons
@@ -1763,15 +1763,15 @@ const DataKeyPair = (props)=>{
     });
 };
 
-const query = "(prefers-color-scheme: dark)";
+const query = '(prefers-color-scheme: dark)';
 function useThemeDetector() {
     const [isDark, setIsDark] = useState(false);
     useEffect(()=>{
         const listener = (e)=>setIsDark(e.matches);
         setIsDark(window.matchMedia(query).matches);
         const queryMedia = window.matchMedia(query);
-        queryMedia.addEventListener("change", listener);
-        return ()=>queryMedia.removeEventListener("change", listener);
+        queryMedia.addEventListener('change', listener);
+        return ()=>queryMedia.removeEventListener('change', listener);
     }, []);
     return isDark;
 }
@@ -1805,33 +1805,33 @@ function useThemeDetector() {
         props.value,
         setState
     ]);
-    useSetIfNotUndefinedEffect("rootName", props.rootName);
-    useSetIfNotUndefinedEffect("indentWidth", props.indentWidth);
-    useSetIfNotUndefinedEffect("keyRenderer", props.keyRenderer);
-    useSetIfNotUndefinedEffect("enableAdd", props.enableAdd);
-    useSetIfNotUndefinedEffect("enableDelete", props.enableDelete);
-    useSetIfNotUndefinedEffect("enableClipboard", props.enableClipboard);
-    useSetIfNotUndefinedEffect("editable", props.editable);
-    useSetIfNotUndefinedEffect("onChange", props.onChange);
-    useSetIfNotUndefinedEffect("onCopy", props.onCopy);
-    useSetIfNotUndefinedEffect("onSelect", props.onSelect);
-    useSetIfNotUndefinedEffect("onAdd", props.onAdd);
-    useSetIfNotUndefinedEffect("onDelete", props.onDelete);
-    useSetIfNotUndefinedEffect("maxDisplayLength", props.maxDisplayLength);
-    useSetIfNotUndefinedEffect("groupArraysAfterLength", props.groupArraysAfterLength);
-    useSetIfNotUndefinedEffect("displayDataTypes", props.displayDataTypes);
-    useSetIfNotUndefinedEffect("displaySize", props.displaySize);
-    useSetIfNotUndefinedEffect("highlightUpdates", props.highlightUpdates);
+    useSetIfNotUndefinedEffect('rootName', props.rootName);
+    useSetIfNotUndefinedEffect('indentWidth', props.indentWidth);
+    useSetIfNotUndefinedEffect('keyRenderer', props.keyRenderer);
+    useSetIfNotUndefinedEffect('enableAdd', props.enableAdd);
+    useSetIfNotUndefinedEffect('enableDelete', props.enableDelete);
+    useSetIfNotUndefinedEffect('enableClipboard', props.enableClipboard);
+    useSetIfNotUndefinedEffect('editable', props.editable);
+    useSetIfNotUndefinedEffect('onChange', props.onChange);
+    useSetIfNotUndefinedEffect('onCopy', props.onCopy);
+    useSetIfNotUndefinedEffect('onSelect', props.onSelect);
+    useSetIfNotUndefinedEffect('onAdd', props.onAdd);
+    useSetIfNotUndefinedEffect('onDelete', props.onDelete);
+    useSetIfNotUndefinedEffect('maxDisplayLength', props.maxDisplayLength);
+    useSetIfNotUndefinedEffect('groupArraysAfterLength', props.groupArraysAfterLength);
+    useSetIfNotUndefinedEffect('displayDataTypes', props.displayDataTypes);
+    useSetIfNotUndefinedEffect('displaySize', props.displaySize);
+    useSetIfNotUndefinedEffect('highlightUpdates', props.highlightUpdates);
     useEffect(()=>{
-        if (props.theme === "light") {
+        if (props.theme === 'light') {
             setState({
                 colorspace: lightColorspace
             });
-        } else if (props.theme === "dark") {
+        } else if (props.theme === 'dark') {
             setState({
                 colorspace: darkColorspace
             });
-        } else if (typeof props.theme === "object") {
+        } else if (typeof props.theme === 'object') {
             setState({
                 colorspace: props.theme
             });
@@ -1841,8 +1841,8 @@ function useThemeDetector() {
         props.theme
     ]);
     const themeCls = useMemo(()=>{
-        if (typeof props.theme === "object") return "json-viewer-theme-custom";
-        return props.theme === "dark" ? "json-viewer-theme-dark" : "json-viewer-theme-light";
+        if (typeof props.theme === 'object') return 'json-viewer-theme-custom';
+        return props.theme === 'dark' ? 'json-viewer-theme-dark' : 'json-viewer-theme-light';
     }, [
         props.theme
     ]);
@@ -1882,9 +1882,9 @@ function useThemeDetector() {
         className: clsx(themeCls, props.className),
         style: props.style,
         sx: {
-            fontFamily: "monospace",
-            userSelect: "none",
-            contentVisibility: "auto",
+            fontFamily: 'monospace',
+            userSelect: 'none',
+            contentVisibility: 'auto',
             ...props.sx
         },
         onMouseLeave: onMouseLeave,
@@ -1896,22 +1896,22 @@ function useThemeDetector() {
     });
 };
 const JsonViewer = function JsonViewer(props) {
-    if (process.env.NODE_ENV !== "production") {
-        if ("displayObjectSize" in props) {
-            console.error("`displayObjectSize` is deprecated. Use `displaySize` instead.\nSee https://viewer.textea.io/migration/migration-v3#raname-displayobjectsize-to-displaysize for more information.");
+    if (process.env.NODE_ENV !== 'production') {
+        if ('displayObjectSize' in props) {
+            console.error('`displayObjectSize` is deprecated. Use `displaySize` instead.\nSee https://viewer.textea.io/migration/migration-v3#raname-displayobjectsize-to-displaysize for more information.');
         }
     }
     const isAutoDarkTheme = useThemeDetector();
     const themeType = useMemo(()=>{
         var _props_theme;
-        return props.theme === "auto" ? isAutoDarkTheme ? "dark" : "light" : (_props_theme = props.theme) !== null && _props_theme !== void 0 ? _props_theme : "light";
+        return props.theme === 'auto' ? isAutoDarkTheme ? 'dark' : 'light' : (_props_theme = props.theme) !== null && _props_theme !== void 0 ? _props_theme : 'light';
     }, [
         isAutoDarkTheme,
         props.theme
     ]);
     const theme = useMemo(()=>{
-        const backgroundColor = typeof themeType === "object" ? themeType.base00 : themeType === "dark" ? darkColorspace.base00 : lightColorspace.base00;
-        const foregroundColor = typeof themeType === "object" ? themeType.base07 : themeType === "dark" ? darkColorspace.base07 : lightColorspace.base07;
+        const backgroundColor = typeof themeType === 'object' ? themeType.base00 : themeType === 'dark' ? darkColorspace.base00 : lightColorspace.base00;
+        const foregroundColor = typeof themeType === 'object' ? themeType.base07 : themeType === 'dark' ? darkColorspace.base07 : lightColorspace.base07;
         return createTheme({
             components: {
                 MuiPaper: {
@@ -1924,7 +1924,7 @@ const JsonViewer = function JsonViewer(props) {
                 }
             },
             palette: {
-                mode: themeType === "dark" ? "dark" : "light",
+                mode: themeType === 'dark' ? 'dark' : 'light',
                 background: {
                     default: backgroundColor
                 }

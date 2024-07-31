@@ -404,14 +404,14 @@ declare namespace dataTypes {
 declare class JsonViewer {
     private props;
     private root?;
-    static Component: <Value>(props: JsonViewerProps<Value>) => react.ReactElement<any, string | react.JSXElementConstructor<any>>;
+    static Component: <Value>(props: JsonViewerProps<Value>) => react.ReactElement;
     static DataTypes: typeof dataTypes;
     static Themes: typeof base16;
     static Utils: {
         applyValue: typeof applyValue;
         defineDataType: typeof defineDataType;
         deleteValue: typeof deleteValue;
-        isCycleReference: (root: any, path: (string | number)[], value: unknown) => string | false;
+        isCycleReference: (root: any, path: (string | number)[], value: unknown) => false | string;
         safeStringify: typeof safeStringify;
     };
     constructor(props: JsonViewerProps);
