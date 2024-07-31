@@ -13,7 +13,6 @@
 tsconfig.tsbuildinfo
 .eslintcache
 node_modules
-dist
 
 .next
 .vercel
