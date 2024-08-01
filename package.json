@@ -51,7 +51,6 @@
     "test:run": "vitest run",
     "dev": "yarn workspace @textea/json-viewer-docs dev",
     "coverage": "vitest run --coverage",
-    "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "lint": "npx eslint . --ext .ts,.tsx,.js,.jsx --cache --fix",
@@ -118,6 +117,10 @@
     "typescript": "^5.4.4",
     "vite": "^5.2.8",
     "vitest": "^1.4.0"
+  },
+  "engines" : { 
+    "npm" : ">=8.0.0",
+    "node" : ">=16.0.0"
   },
   "resolutions": {
     "browserslist": "4.21.5",
