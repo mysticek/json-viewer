@@ -1719,7 +1719,7 @@
                               children: rootName
                           }) : null : KeyRenderer.when(downstreamProps) ? /*#__PURE__*/ jsxRuntime.jsx(KeyRenderer, {
                               ...downstreamProps
-                          }) : nestedIndex === undefined && (isNumberKey ? /*#__PURE__*/ jsxRuntime.jsx(material.Box, {
+                          }) : nestedIndex === undefined && (isNumberKey ? hideColon ? null : /*#__PURE__*/ jsxRuntime.jsx(material.Box, {
                               component: "span",
                               style: {
                                   color: numberKeyColor,

@@ -8782,7 +8782,7 @@ const DataKeyPair = (props)=>{
                             children: rootName
                         }) : null : KeyRenderer.when(downstreamProps) ? /*#__PURE__*/ jsxRuntimeExports.jsx(KeyRenderer, {
                             ...downstreamProps
-                        }) : nestedIndex === undefined && (isNumberKey ? /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
+                        }) : nestedIndex === undefined && (isNumberKey ? hideColon ? null : /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
                             component: "span",
                             style: {
                                 color: numberKeyColor,

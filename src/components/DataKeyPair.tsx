@@ -376,17 +376,19 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
                 ? <KeyRenderer {...downstreamProps} />
                 : nestedIndex === undefined && (
                   isNumberKey
-                    ? (
-                      <Box
-                        component='span'
-                        style={{
-                          color: numberKeyColor,
-                          userSelect: isNumberKey ? 'none' : 'auto'
-                        }}
-                      >
-                        {key}
-                      </Box>
-                      )
+                    ? hideColon
+                      ? null
+                      : (
+                        <Box
+                          component='span'
+                          style={{
+                            color: numberKeyColor,
+                            userSelect: isNumberKey ? 'none' : 'auto'
+                          }}
+                        >
+                          {key}
+                        </Box>
+                        )
                     : quotesOnKeys ? <>&quot;{key}&quot;</> : <> </>
                 )
             )
