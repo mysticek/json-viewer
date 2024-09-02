@@ -27,7 +27,7 @@ export type DataKeyPairProps = {
   nestedIndex?: number
   editable?: boolean
   path: (string | number)[]
-  comaPosition?: 'before' | 'after' | undefined
+  last: boolean
 }
 
 type IconBoxProps = ComponentProps<typeof Box>
@@ -45,7 +45,7 @@ const IconBox: FC<IconBoxProps> = (props) => (
 )
 
 export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
-  const { value, prevValue, path, nestedIndex, comaPosition } = props
+  const { value, prevValue, path, nestedIndex, last } = props
   const { Component, PreComponent, PostComponent, Editor, serialize, deserialize } = useTypeComponents(value, path)
 
   const propsEditable = props.editable ?? undefined
@@ -80,6 +80,7 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
   const keyColor = useTextColor()
   const numberKeyColor = useJsonViewerStore(store => store.colorspace.base0C)
   const highlightColor = useJsonViewerStore(store => store.colorspace.base0A)
+  const displayComma = useJsonViewerStore(store => store.displayComma)
   const quotesOnKeys = useJsonViewerStore(store => store.quotesOnKeys)
   const hideIndex = useJsonViewerStore(store => store.hideIndex)
   const rootName = useJsonViewerStore(store => store.rootName)
@@ -375,8 +376,18 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
                 ? <KeyRenderer {...downstreamProps} />
                 : nestedIndex === undefined && (
                   isNumberKey
-                    ? hideColon ? null : <Box component='span' style={{ color: numberKeyColor }}>{key}</Box>
-                    : quotesOnKeys ? <>&quot;{key}&quot;</> : <>{key}</>
+                    ? (
+                      <Box
+                        component='span'
+                        style={{
+                          color: numberKeyColor,
+                          userSelect: isNumberKey ? 'none' : 'auto'
+                        }}
+                      >
+                        {key}
+                      </Box>
+                      )
+                    : quotesOnKeys ? <>&quot;{key}&quot;</> : <> </>
                 )
             )
           }
@@ -384,9 +395,20 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
         {
           (
             isRoot
-              ? (rootName !== false && <DataBox sx={{ mr: 0.5 }}>{hideColon ? '' : ':'}</DataBox>)
+              ? (rootName !== false && (
+                <DataBox
+                  className='data-key-colon'
+                  sx={{ mr: 0.5 }}
+                >:</DataBox>
+                ))
               : nestedIndex === undefined && (
-                <DataBox sx={{ mr: 0.5 }}>{hideColon ? '' : ':'}</DataBox>
+                <DataBox
+                  sx={{
+                    mr: 0.5,
+                    '.data-key-key:empty + &': { display: 'none' },
+                    userSelect: isNumberKey ? 'none' : 'auto'
+                  }}
+                >{hideColon ? '' : ':'}</DataBox>
               )
           )
         }
@@ -404,7 +426,7 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
             />
             ))
           : (Component)
-              ? <><Component {...downstreamProps} />{comaPosition === 'before' ? ',' : null}</>
+              ? <><Component {...downstreamProps} /></>
               : (
                 <Box component='span' className='data-value-fallback'>
                   {`fallback: ${value}`}
@@ -412,7 +434,7 @@ export const DataKeyPair: FC<DataKeyPairProps> = (props) => {
                 )
       }
       {PostComponent && <PostComponent {...downstreamProps} />}
-      {comaPosition === 'after' && ','}
+      {!last && displayComma && <DataBox>,</DataBox>}
       {(isHover && expandable && !inspect) && actionIcons}
       {(isHover && !expandable) && actionIcons}
       {(!isHover && editing) && actionIcons}

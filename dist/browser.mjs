@@ -6958,7 +6958,7 @@ const DefaultKeyRenderer = ()=>null;
 DefaultKeyRenderer.when = ()=>false;
 const createJsonViewerStore = (props)=>{
     return create()((set, get)=>{
-        var _props_rootName, _props_indentWidth, _props_keyRenderer, _props_enableAdd, _props_enableDelete, _props_enableClipboard, _props_editable, _props_onChange, _props_onCopy, _props_onSelect, _props_onAdd, _props_onDelete, _props_defaultInspectDepth, _props_defaultInspectControl, _props_maxDisplayLength, _props_groupArraysAfterLength, _props_collapseStringsAfterLength, _props_objectSortKeys, _props_hideIndex, _props_quotesOnKeys, _props_displayDataTypes, _props_displaySize, _props_highlightUpdates;
+        var _props_rootName, _props_indentWidth, _props_keyRenderer, _props_enableAdd, _props_enableDelete, _props_enableClipboard, _props_editable, _props_onChange, _props_onCopy, _props_onSelect, _props_onAdd, _props_onDelete, _props_defaultInspectDepth, _props_defaultInspectControl, _props_maxDisplayLength, _props_groupArraysAfterLength, _props_collapseStringsAfterLength, _props_objectSortKeys, _props_hideIndex, _props_quotesOnKeys, _props_displayDataTypes, _props_displaySize, _props_highlightUpdates, _props_displayComma;
         return {
             // provided by user
             rootName: (_props_rootName = props.rootName) !== null && _props_rootName !== void 0 ? _props_rootName : 'root',
@@ -6990,6 +6990,7 @@ const createJsonViewerStore = (props)=>{
             colorspace: lightColorspace,
             value: props.value,
             prevValue: undefined,
+            displayComma: (_props_displayComma = props.displayComma) !== null && _props_displayComma !== void 0 ? _props_displayComma : true,
             getInspectCache: (path, nestedIndex)=>{
                 const target = nestedIndex !== undefined ? path.join('.') + "[".concat(nestedIndex, "]nt") : path.join('.');
                 return get().inspectCache[target];
@@ -7947,7 +7948,7 @@ function inspectMetadata(value) {
 const PreObjectType = (props)=>{
     const metadataColor = useJsonViewerStore((store)=>store.colorspace.base04);
     const textColor = useTextColor();
-    const isArray = reactExports.useMemo(()=>Array.isArray(props.value), [
+    const isArrayLike = reactExports.useMemo(()=>Array.isArray(props.value) || props.value instanceof Set, [
         props.value
     ]);
     const isEmptyValue = reactExports.useMemo(()=>getValueSize(props.value) === 0, [
@@ -7970,7 +7971,7 @@ const PreObjectType = (props)=>{
             letterSpacing: 0.5
         },
         children: [
-            isArray ? arrayLb : objectLb,
+            isArrayLike ? arrayLb : objectLb,
             shouldDisplaySize && props.inspect && !isEmptyValue && /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
                 component: "span",
                 sx: {
@@ -7990,7 +7991,13 @@ const PreObjectType = (props)=>{
                             mx: 0.5
                         }
                     }),
-                    isTrap
+                    /*#__PURE__*/ jsxRuntimeExports.jsx(DataBox, {
+                        sx: {
+                            cursor: 'pointer',
+                            userSelect: 'none'
+                        },
+                        children: isTrap
+                    })
                 ]
             })
         ]
@@ -7999,7 +8006,7 @@ const PreObjectType = (props)=>{
 const PostObjectType = (props)=>{
     const metadataColor = useJsonViewerStore((store)=>store.colorspace.base04);
     const textColor = useTextColor();
-    const isArray = reactExports.useMemo(()=>Array.isArray(props.value), [
+    const isArrayLike = reactExports.useMemo(()=>Array.isArray(props.value) || props.value instanceof Set, [
         props.value
     ]);
     const isEmptyValue = reactExports.useMemo(()=>getValueSize(props.value) === 0, [
@@ -8024,7 +8031,7 @@ const PostObjectType = (props)=>{
             opacity: 0.8
         },
         children: [
-            isArray ? arrayRb : objectRb,
+            isArrayLike ? arrayRb : objectRb,
             shouldDisplaySize && (isEmptyValue || !props.inspect) ? /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
                 component: "span",
                 sx: {
@@ -8058,6 +8065,8 @@ const ObjectType = (props)=>{
         if (iterator && !Array.isArray(value)) {
             const elements = [];
             if (value instanceof Map) {
+                const lastIndex = value.size - 1;
+                let index = 0;
                 value.forEach((value, k)=>{
                     // fixme: key might be a object, array, or any value for the `Map<any, any>`
                     const key = k.toString();
@@ -8066,19 +8075,22 @@ const ObjectType = (props)=>{
                         key
                     ];
                     elements.push(/*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
-                        comaPosition: elements.length < k - 1 ? 'before' : undefined,
+                        last: index === lastIndex,
                         path: path,
                         value: value,
                         prevValue: props.prevValue instanceof Map ? props.prevValue.get(k) : undefined,
                         editable: false
                     }, key));
+                    index++;
                 });
             } else {
                 // iterate with iterator func
                 const iterator = value[Symbol.iterator]();
                 let result = iterator.next();
                 let count = 0;
-                while(!result.done){
+                while(true){
+                    const nextResult = iterator.next();
+                    var _nextResult_done;
                     elements.push(/*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
                         path: [
                             ...props.path,
@@ -8086,15 +8098,17 @@ const ObjectType = (props)=>{
                         ],
                         value: result.value,
                         nestedIndex: count,
-                        editable: false
+                        editable: false,
+                        last: (_nextResult_done = nextResult.done) !== null && _nextResult_done !== void 0 ? _nextResult_done : false
                     }, count));
                     count++;
-                    result = iterator.next();
+                    result = nextResult;
                 }
             }
             return elements;
         }
         if (Array.isArray(value)) {
+            const lastIndex = value.length - 1;
             // unknown[]
             if (value.length <= groupArraysAfterLength) {
                 const elements = value.slice(0, displayLength).map((_value, _index)=>{
@@ -8104,10 +8118,10 @@ const ObjectType = (props)=>{
                         index
                     ];
                     return /*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
-                        comaPosition: _index <= value.length - 2 ? 'before' : undefined,
                         path: path,
                         value: _value,
-                        prevValue: Array.isArray(props.prevValue) ? props.prevValue[index] : undefined
+                        prevValue: Array.isArray(props.prevValue) ? props.prevValue[index] : undefined,
+                        last: _index === lastIndex
                     }, index);
                 });
                 if (value.length > displayLength) {
@@ -8133,13 +8147,14 @@ const ObjectType = (props)=>{
             }
             const elements = segmentArray(value, groupArraysAfterLength);
             const prevElements = Array.isArray(props.prevValue) ? segmentArray(props.prevValue, groupArraysAfterLength) : undefined;
+            const elementsLastIndex = elements.length - 1;
             return elements.map((list, index)=>{
                 return /*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
                     path: props.path,
-                    comaPosition: index <= value.length - 2 ? 'before' : undefined,
                     value: list,
                     nestedIndex: index,
-                    prevValue: prevElements === null || prevElements === void 0 ? void 0 : prevElements[index]
+                    prevValue: prevElements === null || prevElements === void 0 ? void 0 : prevElements[index],
+                    last: index === elementsLastIndex
                 }, index);
             });
         }
@@ -8154,6 +8169,7 @@ const ObjectType = (props)=>{
                 return objectSortKeys(a, b);
             });
         }
+        const lastIndex = entries.length - 1;
         const elements = entries.slice(0, displayLength).map((param, index)=>{
             let [key, value] = param;
             var _props_prevValue;
@@ -8162,10 +8178,10 @@ const ObjectType = (props)=>{
                 key
             ];
             return /*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
-                comaPosition: index <= entries.length - 2 ? 'after' : undefined,
                 path: path,
                 value: value,
-                prevValue: (_props_prevValue = props.prevValue) === null || _props_prevValue === void 0 ? void 0 : _props_prevValue[key]
+                prevValue: (_props_prevValue = props.prevValue) === null || _props_prevValue === void 0 ? void 0 : _props_prevValue[key],
+                last: index === lastIndex
             }, key);
         });
         if (entries.length > displayLength) {
@@ -8398,7 +8414,7 @@ const IconBox = (props)=>/*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
         }
     });
 const DataKeyPair = (props)=>{
-    const { value, prevValue, path, nestedIndex, comaPosition } = props;
+    const { value, prevValue, path, nestedIndex, last } = props;
     const { Component, PreComponent, PostComponent, Editor, serialize, deserialize } = useTypeComponents(value, path);
     var _props_editable;
     const propsEditable = (_props_editable = props.editable) !== null && _props_editable !== void 0 ? _props_editable : undefined;
@@ -8440,6 +8456,7 @@ const DataKeyPair = (props)=>{
     const keyColor = useTextColor();
     const numberKeyColor = useJsonViewerStore((store)=>store.colorspace.base0C);
     const highlightColor = useJsonViewerStore((store)=>store.colorspace.base0A);
+    const displayComma = useJsonViewerStore((store)=>store.displayComma);
     const quotesOnKeys = useJsonViewerStore((store)=>store.quotesOnKeys);
     const hideIndex = useJsonViewerStore((store)=>store.hideIndex);
     const rootName = useJsonViewerStore((store)=>store.rootName);
@@ -8765,10 +8782,11 @@ const DataKeyPair = (props)=>{
                             children: rootName
                         }) : null : KeyRenderer.when(downstreamProps) ? /*#__PURE__*/ jsxRuntimeExports.jsx(KeyRenderer, {
                             ...downstreamProps
-                        }) : nestedIndex === undefined && (isNumberKey ? hideColon ? null : /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
+                        }) : nestedIndex === undefined && (isNumberKey ? /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
                             component: "span",
                             style: {
-                                color: numberKeyColor
+                                color: numberKeyColor,
+                                userSelect: isNumberKey ? 'none' : 'auto'
                             },
                             children: key
                         }) : quotesOnKeys ? /*#__PURE__*/ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, {
@@ -8778,17 +8796,22 @@ const DataKeyPair = (props)=>{
                                 '"'
                             ]
                         }) : /*#__PURE__*/ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, {
-                            children: key
+                            children: " "
                         }))
                     }),
                     isRoot ? rootName !== false && /*#__PURE__*/ jsxRuntimeExports.jsx(DataBox, {
+                        className: "data-key-colon",
                         sx: {
                             mr: 0.5
                         },
-                        children: hideColon ? '' : ':'
+                        children: ":"
                     }) : nestedIndex === undefined && /*#__PURE__*/ jsxRuntimeExports.jsx(DataBox, {
                         sx: {
-                            mr: 0.5
+                            mr: 0.5,
+                            '.data-key-key:empty + &': {
+                                display: 'none'
+                            },
+                            userSelect: isNumberKey ? 'none' : 'auto'
                         },
                         children: hideColon ? '' : ':'
                     }),
@@ -8803,13 +8826,10 @@ const DataKeyPair = (props)=>{
                 setValue: setTempValue,
                 abortEditing: abortEditing,
                 commitEditing: commitEditing
-            }) : Component ? /*#__PURE__*/ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, {
-                children: [
-                    /*#__PURE__*/ jsxRuntimeExports.jsx(Component, {
-                        ...downstreamProps
-                    }),
-                    comaPosition === 'before' ? ',' : null
-                ]
+            }) : Component ? /*#__PURE__*/ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, {
+                children: /*#__PURE__*/ jsxRuntimeExports.jsx(Component, {
+                    ...downstreamProps
+                })
             }) : /*#__PURE__*/ jsxRuntimeExports.jsx(Box, {
                 component: "span",
                 className: "data-value-fallback",
@@ -8818,7 +8838,9 @@ const DataKeyPair = (props)=>{
             PostComponent && /*#__PURE__*/ jsxRuntimeExports.jsx(PostComponent, {
                 ...downstreamProps
             }),
-            comaPosition === 'after' && ',',
+            !last && displayComma && /*#__PURE__*/ jsxRuntimeExports.jsx(DataBox, {
+                children: ","
+            }),
             isHover && expandable && !inspect && actionIcons,
             isHover && !expandable && actionIcons,
             !isHover && editing && actionIcons
@@ -8883,6 +8905,7 @@ function useThemeDetector() {
     useSetIfNotUndefinedEffect('maxDisplayLength', props.maxDisplayLength);
     useSetIfNotUndefinedEffect('groupArraysAfterLength', props.groupArraysAfterLength);
     useSetIfNotUndefinedEffect('displayDataTypes', props.displayDataTypes);
+    useSetIfNotUndefinedEffect('quotesOnKeys', props.quotesOnKeys);
     useSetIfNotUndefinedEffect('displaySize', props.displaySize);
     useSetIfNotUndefinedEffect('highlightUpdates', props.highlightUpdates);
     reactExports.useEffect(()=>{
@@ -8954,7 +8977,8 @@ function useThemeDetector() {
         children: /*#__PURE__*/ jsxRuntimeExports.jsx(DataKeyPair, {
             value: value,
             prevValue: prevValue,
-            path: emptyPath
+            path: emptyPath,
+            last: true
         })
     });
 };

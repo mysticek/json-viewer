@@ -267,6 +267,12 @@ type JsonViewerProps<T = unknown> = {
      */
     displayDataTypes?: boolean;
     /**
+     * Whether display comma at the end of items. Just like valid JSON.
+     *
+     * @default false
+     */
+    displayComma?: boolean;
+    /**
      * Whether display the size of `Object`, `Array`, `Map` and `Set`.
      *
      * Provide a function to customize this behavior by returning a boolean based on the value and path.

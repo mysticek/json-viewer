@@ -65,6 +65,7 @@ const JsonViewerInner: FC<JsonViewerProps> = (props) => {
   useSetIfNotUndefinedEffect('maxDisplayLength', props.maxDisplayLength)
   useSetIfNotUndefinedEffect('groupArraysAfterLength', props.groupArraysAfterLength)
   useSetIfNotUndefinedEffect('displayDataTypes', props.displayDataTypes)
+  useSetIfNotUndefinedEffect('quotesOnKeys', props.quotesOnKeys)
   useSetIfNotUndefinedEffect('displaySize', props.displaySize)
   useSetIfNotUndefinedEffect('highlightUpdates', props.highlightUpdates)
   useEffect(() => {
@@ -124,6 +125,7 @@ const JsonViewerInner: FC<JsonViewerProps> = (props) => {
         value={value}
         prevValue={prevValue}
         path={emptyPath}
+        last={true}
       />
     </Paper>
   )

@@ -39,6 +39,7 @@ export type JsonViewerState<T = unknown> = {
   inspectCache: Record<string, boolean>
   hoverPath: { path: Path; nestedIndex?: number } | null
   colorspace: Colorspace
+  displayComma: boolean
   value: T
   prevValue: T | undefined
 
@@ -81,6 +82,7 @@ export const createJsonViewerStore = <T = unknown>(props: JsonViewerProps<T>) =>
     colorspace: lightColorspace,
     value: props.value,
     prevValue: undefined,
+    displayComma: props.displayComma ?? true,
 
     getInspectCache: (path, nestedIndex) => {
       const target = nestedIndex !== undefined ? path.join('.') + `[${nestedIndex}]nt` : path.join('.')
